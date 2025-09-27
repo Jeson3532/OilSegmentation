@@ -6,8 +6,11 @@ import torch
 import numpy as np
 import cv2
 import albumentations as alb
-import matplotlib.cm as cm
+from src.models import WriteDataModel
+from src.database.models import History
+from pathlib import Path
 
+cur_dir = os.path.dirname(__file__)
 
 def apply_colormap(mask, original_image):
     """Создает наложение маски на исходное изображение"""
@@ -38,8 +41,11 @@ transform = alb.Compose([
 
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-v1_model_path = "src/segment_models/usnpp_model_v1.pth"
-v2_model_path = "src/segment_models/usnpp_model_v2.pth"
+current_file = Path(__file__).resolve()
+project_root = current_file.parent.parent
+
+v1_model_path = project_root / "segment_models" / "usnpp_model_v1.pth"
+v2_model_path = project_root / "segment_models" / "usnpp_model_v2.pth"
 
 model = smp.UnetPlusPlus(
     encoder_name="resnet34",
@@ -50,12 +56,9 @@ model = smp.UnetPlusPlus(
     activation=None
 ).to(DEVICE)
 
-model.load_state_dict(torch.load(v1_model_path, map_location=DEVICE))
+model.load_state_dict(torch.load(v2_model_path, map_location=DEVICE))
 print("Модель загружена.")
 model.to(DEVICE)
-
-def check_ar():
-    ...
 
 
 def segment_image(image_bytes: bytes, path="../images/images.jpeg"):
@@ -81,6 +84,17 @@ def segment_image(image_bytes: bytes, path="../images/images.jpeg"):
 
         classes = np.unique(pred_mask)
 
+        # расчет площади маски
+        total_pixels = pred_mask.size
+        mask_pixels = np.count_nonzero(pred_mask)  # все классы > 0
+        mask_percent = round((mask_pixels / total_pixels) * 100, 2)
+
+        # если хочешь считать процент для каждого класса отдельно
+        classes_percent = {}
+        for cls in classes:
+            cls_pixels = np.sum(pred_mask == cls)
+            classes_percent[int(cls)] = round((cls_pixels / total_pixels) * 100, 2)
+
         # наложение
         image_rgba = image.convert("RGBA")
 
@@ -98,7 +112,8 @@ def segment_image(image_bytes: bytes, path="../images/images.jpeg"):
         return {
             "status_code": 200,
             "mask": result_bytes,
-            "classes": classes.tolist()
+            "classes": classes.tolist(),
+            "percent_pollution": mask_percent
         }
 
     except Exception as e:
@@ -109,7 +124,14 @@ def segment_image(image_bytes: bytes, path="../images/images.jpeg"):
             "detail": str(e)
         }
 
+def collect_writedata(name: str, image_bytes: bytes, percent_pollution: float):
+    write_data_dict = {
+        "name": name,
+        "image_bytes": image_bytes,
+        "percent_pollution": percent_pollution
+    }
+    return History(**write_data_dict)
 
-# print(segment_image(bytearray_.getvalue()))
+
 
 
