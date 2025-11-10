@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="phone_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Mozilla+Headline:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="hamburger">&#9776;</label>
+    <div class="overlay"></div>
+    <div class="main-container">
+        <div data-property-1="Default" class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo-container">
+                    <a href="\site\index.html">
+                        <div class="logo">
+                            <img src="\site\photo\Oilyx.svg" alt="Oilyx">
+                        </div>
+                    </a>
+                    <div class="icon">
+                        <img src="\site\photo\Frame 1.svg" alt="logo">
+                    </div>
+                </div>
+                <img src="\site\photo\by facup.svg" alt="by facup">
+            </div>
+            <div data-property-1="Default" class="menu-container">
+                <div class="menu-title">инструменты</div>
+                <a href="\site\analiz.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default2"></div>
+                            <div class="icon-hover2"></div>
+                        </div>
+                        <div class="menu-item">Analiz</div>
+                    </div>
+                </a>
+                <a href="\site\Map.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default"></div>
+                            <div class="icon-hover"></div>
+                        </div>
+                        <div class="menu-item">Map</div>
+                    </div>
+                </a>
+                <a href="\site\admin.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default1"></div>
+                            <div class="icon-hover1"></div>
+                        </div>
+                        <div class="menu-item">Admin</div>
+                    </div>
+                </a>
+                <a href="\site\reestr.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default3"></div>
+                            <div class="icon-hover3"></div>
+                        </div>
+                        <div class="menu-item">Reestr</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="footer-button-container">
+                    <img src="\site\photo\Frame.svg" alt="#">
+                    <div class="footer-button focus_line"><a href="https://t.me/plumoraT">Contact</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="upload-container">
+                <input type="file" id="file-input" accept="image/*" hidden>
+                <label for="file-input" class="upload-button" id="upload-btn">
+                    <div class="button-text">Choose files</div>
+                </label>
+                <div class="upload-subtitle">Drop files here. 100 MB maximum file size</div>
+                <div class="file-info" id="file-info"></div>
+            </div>
+            
+            <!-- Контейнер для отображения результатов -->
+            <div class="results-container" id="results-container" style="display: none;">
+                <div class="result-images">
+                    <div class="image-wrapper">
+                        <div class="image-title">Исходное изображение</div>
+                        <img id="original-image" alt="Original Image">
+                    </div>
+                    <div class="image-wrapper">
+                        <div class="image-title">Результат (Маска)</div>
+                        <img id="mask-image" alt="Mask Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="analiz.js"></script>
+</body>
+</html>

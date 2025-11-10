@@ -1,0 +1,59 @@
+/* Версия телефон-планшет >775px */
+.hamburger {
+    display: none;
+    font-size: 30px;
+    color: white;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    cursor: pointer;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+@media (max-width: 775px) {
+    .hamburger {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        height: 100%;
+        transition: left 0.3s ease;
+        z-index: 1002;
+    }
+
+    .sidebar.active {
+        left: 0 !important;
+    }
+
+    .overlay.active {
+        display: block !important;
+    }
+
+    .main-container {
+        flex-direction: column;
+    }
+
+    .welcome-title {
+        font-size: 65px;
+    }
+
+    .change-image-button {
+    left: 160px;
+    }
+
+    .back-button {
+    left: 60px;
+    }
+}

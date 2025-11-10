@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реестр инцидентов</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="phone_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Mozilla+Headline:wght@200..700&display=swap" rel="stylesheet">
+    <style>
+        /* Стили для таблицы */
+        .table-container {
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            overflow: auto;
+        }
+
+        .incidents-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .incidents-table th {
+            background: #333;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #444;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .incidents-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #444;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        .incidents-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .incidents-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .photo-cell img {
+            max-width: 120px;
+            max-height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #555;
+        }
+
+        .table-header {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: 'Mozilla Headline', sans-serif;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 775px) {
+            .table-container {
+                padding: 20px;
+            }
+            
+            .incidents-table {
+                font-size: 12px;
+            }
+            
+            .incidents-table th,
+            .incidents-table td {
+                padding: 8px 10px;
+            }
+            
+            .photo-cell img {
+                max-width: 80px;
+                max-height: 60px;
+            }
+            
+            .table-header {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="hamburger">&#9776;</label>
+    <div class="overlay"></div>
+    <div class="main-container">
+        <div data-property-1="Default" class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo-container">
+                    <a href="\site\index.html">
+                        <div class="logo">
+                            <img src="\site\photo\Oilyx.svg" alt="Oilyx">
+                        </div>
+                    </a>
+                    <div class="icon">
+                        <img src="\site\photo\Frame 1.svg" alt="logo">
+                    </div>
+                </div>
+                <img src="\site\photo\by facup.svg" alt="by facup">
+            </div>
+            <div data-property-1="Default" class="menu-container">
+                <div class="menu-title">инструменты</div>
+                <a href="\site\analiz.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default2"></div>
+                            <div class="icon-hover2"></div>
+                        </div>
+                        <div class="menu-item">Analiz</div>
+                    </div>
+                </a>
+                <a href="\site\Map.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default"></div>
+                            <div class="icon-hover"></div>
+                        </div>
+                        <div class="menu-item">Map</div>
+                    </div>
+                </a>
+                <a href="\site\admin.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default1"></div>
+                            <div class="icon-hover1"></div>
+                        </div>
+                        <div class="menu-item">Admin</div>
+                    </div>
+                </a>
+                <a href="\site\reestr.html">
+                    <div class="new-chat-box focus">
+                        <div class="icon-container-chat">
+                            <div class="icon-default3"></div>
+                            <div class="icon-hover3"></div>
+                        </div>
+                        <div class="menu-item">Reestr</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="footer-button-container">
+                    <img src="\site\photo\Frame.svg" alt="#">
+                    <div class="footer-button focus_line"><a href="https://t.me/plumoraT">Contact</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="table-container">
+                <div class="table-header">Реестр инцидентов розлива</div>
+                <table class="incidents-table" id="incidentsTable">
+                    <thead>
+                        <tr>
+                            <th>Месторождение</th>
+                            <th>Координаты</th>
+                            <th>Дата инцидента</th>
+                            <th>Масштаб розлива</th>
+                            <th>Фото</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Данные будут загружены здесь -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Заглушка данных вместо API
+        const mockData = [
+        {
+            "месторождение": "Варьеганское",
+            "координаты": "62.083333, 77.566667",
+            "дата инцидента": "01.09.25 10:00",
+            "масштаб розлива": "6%",
+            "фото": "https//oilyx.net/photo/incidents/161982"
+        },
+        {
+            "месторождение": "Зимнее",
+            "координаты": "59°42'04.0\"N, 68°58'55.0\"E",
+            "дата инцидента": "02.09.25 11:00",
+            "масштаб розлива": "24%",
+            "фото": "https//oilyx.net/photo/incidents/353243"
+        },
+        {
+            "месторождение": "Каменное",
+            "координаты": "61°24′01″ с. ш. 67°16′47″ в. д.",
+            "дата инцидента": "03.09.25 12:00",
+            "масштаб розлива": "64%",
+            "фото": "https//oilyx.net/photo/incidents/657576"
+        },
+        {
+            "месторождение": "Приобское",
+            "координаты": "61°20′00″ с. ш. 70°18′50″ в. д.",
+            "дата инцидента": "03.09.25 13:00",
+            "масштаб розлива": "10%",
+            "фото": "https//oilyx.net/photo/incidents/123134"
+        },
+        {
+            "месторождение": "Салымское",
+            "координаты": "60.800000, 71.283333",
+            "дата инцидента": "04.09.25 14:00",
+            "масштаб розлива": "40%",
+            "фото": "https//oilyx.net/photo/incidents/324875"
+        },
+        {
+            "месторождение": "Самотлорское",
+            "координаты": "61.166667, 76.633333",
+            "дата инцидента": "05.09.25 15:00",
+            "масштаб розлива": "80%",
+            "фото": "https//oilyx.net/photo/incidents/124760"
+        },
+        {
+            "месторождение": "Северное",
+            "координаты": "60°47'5''N 78°30'57''E",
+            "дата инцидента": "05.09.25 16:00",
+            "масштаб розлива": "20%",
+            "фото": "https//oilyx.net/photo/incidents/213678"
+        },
+        {
+            "месторождение": "Тайлаковское",
+            "координаты": "59°9'23\"N 74°6'39\"E",
+            "дата инцидента": "06.09.25 17:00",
+            "масштаб розлива": "5%",
+            "фото": "https//oilyx.net/photo/incidents/214567"
+        },
+        {
+            "месторождение": "Эргинское",
+            "координаты": "60.513028, 69.011032",
+            "дата инцидента": "07.09.25 18:00",
+            "масштаб розлива": "12%",
+            "фото": "https//oilyx.net/photo/incidents/643986"
+        }
+        ];
+
+        // Функция для заполнения таблицы
+        function populateTable(data) {
+            const tableBody = document.getElementById('tableBody');
+            
+            if (!data || data.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="no-data">Нет данных для отображения</td></tr>';
+                return;
+            }
+            
+            tableBody.innerHTML = '';
+            
+            data.forEach(incident => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${incident.месторождение}</td>
+                    <td>${incident.координаты}</td>
+                    <td>${incident['дата инцидента']}</td>
+                    <td>${incident['масштаб розлива']}</td>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Функция для загрузки данных с API (заглушка)
+        function loadDataFromAPI() {
+            // В будущем здесь будет fetch запрос к API
+            // fetch('/api/incidents')
+            //     .then(response => response.json())
+            //     .then(data => populateTable(data))
+            //     .catch(error => {
+            //         console.error('Ошибка загрузки данных:', error);
+            //         populateTable([]);
+            //     });
+            
+            // Пока используем заглушку
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(mockData);
+                }, 500);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDataFromAPI().then(data => {
+                populateTable(data);
+            });
+        });
+
+        window.updateIncidentsTable = function(newData) {
+            populateTable(newData);
+        };
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>

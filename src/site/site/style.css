@@ -1,0 +1,577 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    background: #212121;
+    overflow: hidden;
+    justify-content: center;
+    align-items: flex-start;
+    display: inline-flex;
+}
+
+.sidebar {
+    width: 297px;
+    align-self: stretch;
+    padding: 25px;
+    background: #181818;
+    overflow: hidden;
+    border-right: 1px #303030 solid;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    display: inline-flex;
+}
+
+.sidebar-top {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    display: flex;
+}
+
+.logo-container {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+    display: inline-flex;
+}
+
+.logo {
+    height: 59px;
+}
+
+.icon {
+    height: 44px;
+    position: relative;
+    left: 5px;
+}
+
+.menu-container {
+    align-self: stretch;
+    flex: 1 1 0;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    display: flex;
+}
+
+.menu-title {
+    align-self: stretch;
+    color: #B8B8B8;
+    font-size: 13px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.menu-item {
+    align-self: stretch;
+    color: white;
+    padding: 10px;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
+    display: inline-flex;
+    font-size: 15px;
+}
+
+.sidebar-bottom {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    display: flex;
+}
+
+.footer-button-container {
+    align-self: stretch;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+}
+
+.footer-button {
+    flex: 1 1 0;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.content-area {
+    flex: 1 1 0;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+    gap: 10px;
+    word-wrap: break-word;
+}
+
+.welcome-title {
+    align-self: stretch;
+    text-align: center;
+    color: white;
+    font-size: 96px;
+    font-family: 'Mozilla Headline', sans-serif;
+    word-wrap: break-word;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-variation-settings: "wdth" 100;
+}
+
+.welcome-subtitle {
+    align-self: stretch;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    word-wrap: break-word;
+}
+
+.new-chat-box {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    margin: 0px;
+    padding: 0px;
+}
+
+.new-chat-box {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+}
+
+.icon-container-chat {
+    position: relative;
+    left: 10px;
+    background-repeat: no-repeat;
+}
+
+.icon-default {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/FrameMap.svg');
+    background-size: contain;
+}
+
+.icon-hover {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/FrameMap.svg');
+    filter: invert(100%) brightness(0%);
+    background-size: contain;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.7s ease;
+}
+
+.focus:hover .menu-item {
+    color: #000000 !important;
+}
+
+.focus:hover .icon-default {
+    opacity: 0;
+}
+
+.focus:hover .icon-hover {
+    opacity: 1;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.focus:hover {
+    background: white;
+    color: #181818;
+    transition: all 0.7s ease;
+}
+
+.focus_line:hover {
+    text-decoration: underline;
+}
+
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.map-constructor {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease;
+}
+
+.map {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.5s ease;
+}
+
+.zoom-button {
+    position: absolute;
+    right: 20%;
+    bottom: 40%;
+    width: 30px;
+    height: 30px;
+    background: rgb(255, 0, 0);
+    border: 3px rgb(0, 0, 0) solid;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.position1 {
+    right: 20%;
+    bottom: 40%;
+}
+
+.position2 {
+    right: 40%;
+    bottom: 45%;
+}
+
+.zoom-button:hover {
+    transform: scale(1.1);
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 100;
+    display: none;
+}
+
+.back-button:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.map-zoomed .map-container {
+    transform: scale(2) translateX(-25%);
+}
+
+.map-zoomed .zoom-button {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.map-constructor {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.map-zoomed .map-constructor {
+    transform: scale(2) translateX(-25%);
+}
+
+.change-image-button {
+    position: absolute;
+    top: 20px;
+    left: 120px;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 100;
+    display: none;
+}
+
+.change-image-button:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.detail-view {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    gap: 20px;
+}
+
+.images-container {
+    display: flex;
+    width: 100%;
+    height: 70%;
+    gap: 20px;
+}
+
+.image-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+}
+
+.image-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.normal-image, .mask-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: 3px solid #303030;
+    border-radius: 5px;
+}
+
+.description-container {
+    flex: 1;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+}
+
+.location-title {
+    font-size: 26px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.location-description {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #e0e0e0;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding: 20px;
+}
+
+.upload-button {
+    padding: 24px 40px;
+    background: #FF0000;
+    color: white;
+    font-size: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    word-wrap: break-word;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    width: auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    width: 100%;
+}
+
+.upload-button:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+}
+
+.upload-subtitle {
+    color: #B8B8B8;
+    font-size: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 400;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.file-info {
+    color: white;
+    font-size: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 10px;
+    text-align: center;
+    max-width: 500px;
+    word-wrap: break-word;
+}
+
+.upload-container.dragover {
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px dashed #FF0000;
+    border-radius: 10px;
+}
+
+.upload-button.dragover {
+    background: #990000;
+}
+
+.icon-default1 {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/Frame01.svg');
+    background-size: contain;
+}
+
+.icon-hover1 {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/Frame01.svg');
+    filter: invert(100%) brightness(0%);
+    background-size: contain;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.7s ease;
+}
+
+.focus:hover .icon-default1 {
+    opacity: 0;
+}
+
+.focus:hover .icon-hover1 {
+    opacity: 1;
+}
+
+.icon-default2 {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/Frame02.svg');
+    background-size: contain;
+}
+
+.icon-hover2 {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/Frame02.svg');
+    filter: invert(100%) brightness(0%);
+    background-size: contain;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.7s ease;
+}
+
+.focus:hover .icon-default2 {
+    opacity: 0;
+}
+
+.focus:hover .icon-hover2 {
+    opacity: 1;
+}
+
+.icon-default3 {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/Frame03.svg');
+    background-size: contain;
+}
+
+.icon-hover3 {
+    width: 20px;
+    height: 20px;
+    background-image: url('/site/photo/Frame03.svg');
+    filter: invert(100%) brightness(0%);
+    background-size: contain;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.7s ease;
+}
+
+.focus:hover .icon-default3 {
+    opacity: 0;
+}
+
+.focus:hover .icon-hover3 {
+    opacity: 1;
+}
+
+/* Стили для отображения результатов */
+.results-container {
+    width: 100%;
+    padding: 20px;
+    display: none;
+}
+
+.result-images {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.result-images .image-wrapper {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.result-images .image-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.result-images img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border: 3px solid #303030;
+    border-radius: 5px;
+}
